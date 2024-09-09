@@ -3,11 +3,6 @@ name: Windows build
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - main
-
-
 jobs:
   build_cygwin:
     name: Build-host (${{ matrix.os }})

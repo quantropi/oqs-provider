@@ -3,10 +3,6 @@ name: MacOS build
 on:
   workflow_dispatch:
 
-  push:
-    branches:
-      - main
-
 jobs:
   build:
     name: Build-host (${{ matrix.os }})

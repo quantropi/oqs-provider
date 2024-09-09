@@ -15,8 +15,12 @@ jobs:
     env:
       MAKE_PARAMS: -j 4   # Don't overwhelm github CI VMs:
     steps:
-      - name: Checkout provider
-        uses: actions/checkout@v3
+      - name: Checkout oqs-provider
+        uses: actions/checkout@v4
+        with:
+          repository: open-quantum-safe/oqs-provider
+          ref: 0.6.1
+          path: oqs-provider
 
       - name: Checkout openssl
         uses: actions/checkout@v3

@@ -1,11 +1,7 @@
-name: Linux tests
+name: Linux Build
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ '*' ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   coding_style_tests:
@@ -73,14 +69,11 @@ jobs:
           find . -type f -and '(' -name '*.h' -or -name '*.c' -or -name '*.inc' ')' | xargs clang-format -i && \
           git diff && \
           ! git status | grep modified
-      - name: Build .deb install package
-        run: cpack -C DebPack
-        working-directory: _build
-      - name: Retain .deb installer
+      - name: Retain oqsprovider.so
         uses: actions/upload-artifact@v3
         with:
-          name: oqsprovider-x64
-          path: _build/*.deb
+          name: oqsprovider-ubuntu-x64
+          path: _build/lib/oqsprovider.so
 
   asan_linux_intel:
     name: "Security checks"

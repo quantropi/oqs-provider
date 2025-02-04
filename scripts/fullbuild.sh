@@ -3,12 +3,14 @@
 # The following variables influence the operation of this build script:
 # Argument -f: Soft clean, ensuring re-build of oqs-provider binary
 # Argument -F: Hard clean, ensuring checkout and build of all dependencies
+# EnvVar CMAKE_PARAMS: passed to cmake
 # EnvVar MAKE_PARAMS: passed to invocations of make; sample value: "-j"
 # EnvVar OQSPROV_CMAKE_PARAMS: passed to invocations of oqsprovider cmake
 # EnvVar LIBOQS_BRANCH: Defines branch/release of liboqs; default value "main"
 # EnvVar OQS_ALGS_ENABLED: If set, defines OQS algs to be enabled, e.g., "STD"
 # EnvVar OPENSSL_INSTALL: If set, defines (binary) OpenSSL installation to use
 # EnvVar OPENSSL_BRANCH: Defines branch/release of openssl; if set, forces source-build of OpenSSL3
+#        Setting this to feature/dtls-1.3 enables build&test of all PQ algs using DTLS1.3 feature branch
 # EnvVar liboqs_DIR: If set, needs to point to a directory where liboqs has been installed to
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -36,6 +38,12 @@ if [ -z "$OQS_ALGS_ENABLED" ]; then
    export DOQS_ALGS_ENABLED=""
 else
    export DOQS_ALGS_ENABLED="-DOQS_ALGS_ENABLED=$OQS_ALGS_ENABLED"
+fi
+
+if [ -z "$OQS_LIBJADE_BUILD" ]; then
+   export DOQS_LIBJADE_BUILD="-DOQS_LIBJADE_BUILD=OFF"
+else
+   export DOQS_LIBJADE_BUILD="-DOQS_LIBJADE_BUILD=$OQS_LIBJADE_BUILD"
 fi
 
 if [ -z "$OPENSSL_INSTALL" ]; then
@@ -108,7 +116,7 @@ if [ -z $liboqs_DIR ]; then
   #    STD: only include NIST standardized algorithms
   #    NIST_R4: only include algorithms in round 4 of the NIST competition
   #    All: include all algorithms supported by liboqs (default)
-  cd liboqs && cmake -GNinja $DOQS_ALGS_ENABLED $CMAKE_OPENSSL_LOCATION -DCMAKE_INSTALL_PREFIX=$(pwd)/../.local -S . -B _build && cd _build && ninja && ninja install && cd ../..
+  cd liboqs && cmake -GNinja $CMAKE_PARAMS $DOQS_ALGS_ENABLED $CMAKE_OPENSSL_LOCATION $DOQS_LIBJADE_BUILD -DCMAKE_INSTALL_PREFIX=$(pwd)/../.local -S . -B _build && cd _build && ninja && ninja install && cd ../..
   if [ $? -ne 0 ]; then
       echo "liboqs build failed. Exiting."
       exit -1
@@ -125,9 +133,9 @@ if [ ! -f "_build/lib/oqsprovider.$SHLIBEXT" ]; then
    BUILD_TYPE=""
    # for omitting public key in private keys add -DNOPUBKEY_IN_PRIVKEY=ON
    if [ -z "$OPENSSL_INSTALL" ]; then
-       cmake $CMAKE_OPENSSL_LOCATION $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
+       cmake $CMAKE_PARAMS $CMAKE_OPENSSL_LOCATION $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
    else
-       cmake -DOPENSSL_ROOT_DIR=$OPENSSL_INSTALL $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
+       cmake $CMAKE_PARAMS -DOPENSSL_ROOT_DIR=$OPENSSL_INSTALL $BUILD_TYPE $OQSPROV_CMAKE_PARAMS -S . -B _build && cmake --build _build
    fi
    if [ $? -ne 0 ]; then
      echo "provider build failed. Exiting."

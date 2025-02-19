@@ -12,18 +12,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        cmake-params: [ "", "-DOQS_KEM_ENCODERS=ON" ]
+        cmake-params: [ ""]
         libjade-build: ["ON", "OFF"]
     container:
       image: openquantumsafe/ci-ubuntu-jammy:latest
     env:
       MAKE_PARAMS: "-j 18"
-      LIBOQS_BRANCH: "0.12.0"
+      LIBOQS_BRANCH: "main"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: 0.8.0
       - name: Full build
         run: OQSPROV_CMAKE_PARAMS=${{ matrix.cmake-params}} OQS_LIBJADE_BUILD=${{ matrix.libjade-build }} ./scripts/fullbuild.sh
       - name: Enable sibling oqsprovider for testing
@@ -37,7 +35,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ossl-branch: [openssl-3.4.0] #master fails
+        ossl-branch: [openssl-3.4.0, master]
+        cmake-params: [ "", "-DOQS_KEM_ENCODERS=ON" ]
         libjade-build:
           - "ON" 
           - "OFF"
@@ -56,11 +55,11 @@ jobs:
       LIBOQS_BRANCH: "main"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: 0.8.0
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+      - name: Add safe directory exception
+        run: git config --global --add safe.directory /__w/oqs-provider/oqs-provider
       - name: Full build
-        run: OPENSSL_BRANCH=${{ matrix.ossl-branch }} LIBOQS_BRANCH=0.12.0 OQS_LIBJADE_BUILD=${{ matrix.libjade-build }} ./scripts/fullbuild.sh
+        run: OQSPROV_CMAKE_PARAMS=${{ matrix.cmake-params}} OPENSSL_BRANCH=${{ matrix.ossl-branch }} LIBOQS_BRANCH=main OQS_LIBJADE_BUILD=${{ matrix.libjade-build }} ./scripts/fullbuild.sh
       - name: Enable sibling oqsprovider for testing
         run: cd _build/lib && ln -s oqsprovider.so oqsprovider2.so
       - name: Test
@@ -82,7 +81,7 @@ jobs:
       - name: Retain .deb installer
         uses: actions/upload-artifact@v4
         with:
-          name: oqsprovider-x86-x64-${{ matrix.libjade-build }}
+          name: ${{ matrix.ossl-branch }} ${{ matrix.cmake-params }} ${{ matrix.libjade-build }} oqsprovider-x64
           path: _build/lib/oqsprovider.so
       - name: Verify that the static library is copied to the install directory.
         run: |
@@ -100,15 +99,13 @@ jobs:
     container:
       image: openquantumsafe/ci-ubuntu-jammy:latest
     env:
-      OPENSSL_BRANCH: "openssl-3.4.0"
+      OPENSSL_BRANCH: "master"
       INSTALL_DIR: "/opt/install"
       CMAKE_TOOLCHAIN_FILE: "/opt/linux-aarch64-toolchain.cmake"
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: 0.8.0
 
       - name: Install dependencies
         run: apt-get update && apt-get install -y ninja-build git cmake nodejs gcc-aarch64-linux-gnu libc6-dev-arm64-cross qemu-user
@@ -137,7 +134,7 @@ jobs:
       - name: Clone and build liboqs for linux-aarch64
         working-directory: /opt/
         run: |
-          git clone --depth=1 --branch 0.12.0 https://github.com/open-quantum-safe/liboqs.git liboqs
+          git clone --depth=1 --branch main https://github.com/open-quantum-safe/liboqs.git liboqs
           cd liboqs
           mkdir build install
           cmake --toolchain "${CMAKE_TOOLCHAIN_FILE}" \

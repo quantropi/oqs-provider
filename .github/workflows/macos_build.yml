@@ -28,9 +28,7 @@ jobs:
       MAKE_PARAMS: -j 4
     steps:
       - name: Checkout provider
-        uses: actions/checkout@v4
-        with:
-          ref: 0.8.0
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
       - name: Checkout openssl
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
         with:
@@ -42,7 +40,7 @@ jobs:
         with:
           set-safe-directory: true
           repository: open-quantum-safe/liboqs
-          ref: 0.12.0
+          ref: main
           path: liboqs
       - name: Retrieve OpenSSL32 from cache
         id: cache-openssl32

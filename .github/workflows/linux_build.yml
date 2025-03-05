@@ -6,28 +6,6 @@ on:
 jobs:
   coding_style_tests:
     uses: ./.github/workflows/coding_style.yml
-  linux_baseline:
-    runs-on: ubuntu-latest
-    needs: [coding_style_tests]
-    strategy:
-      fail-fast: false
-      matrix:
-        cmake-params: [ ""]
-        libjade-build: ["ON", "OFF"]
-    container:
-      image: openquantumsafe/ci-ubuntu-jammy:latest
-    env:
-      MAKE_PARAMS: "-j 18"
-      LIBOQS_BRANCH: "main"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Full build
-        run: OQSPROV_CMAKE_PARAMS=${{ matrix.cmake-params}} OQS_LIBJADE_BUILD=${{ matrix.libjade-build }} ./scripts/fullbuild.sh
-      - name: Enable sibling oqsprovider for testing
-        run: cd _build/lib && ln -s oqsprovider.so oqsprovider2.so
-      - name: Test
-        run: ./scripts/runtests.sh -V
 
   linux_intel:
     runs-on: ubuntu-latest
@@ -37,15 +15,10 @@ jobs:
       matrix:
         ossl-branch: [openssl-3.4.0, master]
         cmake-params: [ "", "-DOQS_KEM_ENCODERS=ON" ]
-        libjade-build:
-          - "ON" 
-          - "OFF"
+        libjade-build: ["ON" , "OFF"]
         include:
           - name: alpine
             container: openquantumsafe/ci-alpine-amd64:latest
-# focal test done on CircleCI - save the compute cycles here until CCI is dropped
-#          - name: focal
-#            container: openquantumsafe/ci-ubuntu-focal-x86_64:latest
           - name: jammy
             container: openquantumsafe/ci-ubuntu-jammy:latest
     container:
@@ -81,7 +54,7 @@ jobs:
       - name: Retain .deb installer
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.ossl-branch }} ${{ matrix.cmake-params }} ${{ matrix.libjade-build }} oqsprovider-x64
+          name: ${{ matrix.ossl-branch }}-${{ matrix.cmake-params }}-OQS_LIBJADE_BUILD=${{ matrix.libjade-build }}-x64-oqs-provider-intel
           path: _build/lib/oqsprovider.so
       - name: Verify that the static library is copied to the install directory.
         run: |
@@ -177,5 +150,5 @@ jobs:
       - name: Retain .deb installer
         uses: actions/upload-artifact@v4
         with:
-          name: oqsprovider-aarch64
+          name: linux-aarch64-oqs-provider
           path: build/*.deb

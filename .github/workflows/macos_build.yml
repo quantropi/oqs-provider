@@ -87,5 +87,5 @@ jobs:
       - name: Retain oqsprovider.dylib
         uses: actions/upload-artifact@v4
         with:
-          name: oqs-provider-${{matrix.os}}-x64
+          name: ${{matrix.os}}-x64-oqs-provider
           path: _build/lib/oqsprovider.dylib

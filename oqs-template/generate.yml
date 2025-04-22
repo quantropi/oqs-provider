@@ -448,7 +448,7 @@ kem_nid_end: '0x0250'
 kem_nid_hybrid_end: '0x2FFF'
 # need to edit ssl_local.h macros IS_OQS_KEM_CURVEID and IS_OQS_KEM_HYBRID_CURVEID with the above _end values
 
-# Next free signature ID: 0xff0a
+# Next free signature ID: 0xff3a
 sigs:
   # -
     # iso (1)
@@ -1542,46 +1542,46 @@ sigs:
         name: 'mayo1'
         pretty_name: 'MAYO-1'
         oqs_meth: 'OQS_SIG_alg_mayo_1'
-        oid: '1.3.9999.8.1.1'
-        code_point: '0xfeee'
+        oid: '1.3.9999.8.1.3'
+        code_point: '0xff32'
         enable: true
         mix_with: [{'name': 'p256',
                     'pretty_name': 'ECDSA p256',
-                    'oid': '1.3.9999.8.1.2',
-                    'code_point': '0xfef2'}]
+                    'oid': '1.3.9999.8.1.4',
+                    'code_point': '0xff36'}]
       -
         name: 'mayo2'
         pretty_name: 'MAYO-2'
         oqs_meth: 'OQS_SIG_alg_mayo_2'
-        oid: '1.3.9999.8.2.1'
-        code_point: '0xfeef'
+        oid: '1.3.9999.8.2.3'
+        code_point: '0xff33'
         enable: true
         mix_with: [{'name': 'p256',
                     'pretty_name': 'ECDSA p256',
-                    'oid': '1.3.9999.8.2.2',
-                    'code_point': '0xfef3'}]
+                    'oid': '1.3.9999.8.2.4',
+                    'code_point': '0xff37'}]
       -
         name: 'mayo3'
         pretty_name: 'MAYO-3'
         oqs_meth: 'OQS_SIG_alg_mayo_3'
-        oid: '1.3.9999.8.3.1'
-        code_point: '0xfef0'
+        oid: '1.3.9999.8.3.3'
+        code_point: '0xff34'
         enable: true
         mix_with: [{'name': 'p384',
                     'pretty_name': 'ECDSA p384',
-                    'oid': '1.3.9999.8.3.2',
-                    'code_point': '0xfef4'}]
+                    'oid': '1.3.9999.8.3.4',
+                    'code_point': '0xff38'}]
       -
         name: 'mayo5'
         pretty_name: 'MAYO-5'
         oqs_meth: 'OQS_SIG_alg_mayo_5'
-        oid: '1.3.9999.8.5.1'
-        code_point: '0xfef1'
+        oid: '1.3.9999.8.5.3'
+        code_point: '0xff35'
         enable: true
         mix_with: [{'name': 'p521',
                     'pretty_name': 'ECDSA p521',
-                    'oid': '1.3.9999.8.5.2',
-                    'code_point': '0xfef5'}]
+                    'oid': '1.3.9999.8.5.4',
+                    'code_point': '0xff39'}]
   -
     family: 'CROSS'
     variants:
@@ -1590,44 +1590,44 @@ sigs:
         name: 'CROSSrsdp128balanced'
         pretty_name: 'CROSS-rsdp-128-balanced'
         oqs_meth: 'OQS_SIG_alg_cross_rsdp_128_balanced'
-        oid: '1.3.6.1.4.1.62245.2.1.1'
-        code_point: '0xfef6'
+        oid: '1.3.6.1.4.1.62245.2.1.1.2'
+        code_point: '0xff22'
         enable: true
       -
         name: 'CROSSrsdp128fast'
         pretty_name: 'CROSS-rsdp-128-fast'
         oqs_meth: 'OQS_SIG_alg_cross_rsdp_128_fast'
-        oid: '1.3.6.1.4.1.62245.2.1.2'
-        code_point: '0xfef7'
+        oid: '1.3.6.1.4.1.62245.2.1.2.2'
+        code_point: '0xff23'
         enable: false
       -
         name: 'CROSSrsdp128small'
         pretty_name: 'CROSS-rsdp-128-small'
         oqs_meth: 'OQS_SIG_alg_cross_rsdp_128_small'
-        oid: '1.3.6.1.4.1.62245.2.1.3'
-        code_point: '0xfef8'
+        oid: '1.3.6.1.4.1.62245.2.1.3.2'
+        code_point: '0xff24'
         enable: false
       # RSDP 192
       -
         name: 'CROSSrsdp192balanced'
         pretty_name: 'CROSS-rsdp-192-balanced'
         oqs_meth: 'OQS_SIG_alg_cross_rsdp_192_balanced'
-        oid: '1.3.6.1.4.1.62245.2.1.4'
-        code_point: '0xfef9'
+        oid: '1.3.6.1.4.1.62245.2.1.4.2'
+        code_point: '0xff25'
         enable: false
       -
         name: 'CROSSrsdp192fast'
         pretty_name: 'CROSS-rsdp-192-fast'
         oqs_meth: 'OQS_SIG_alg_cross_rsdp_192_fast'
-        oid: '1.3.6.1.4.1.62245.2.1.5'
-        code_point: '0xfefa'
+        oid: '1.3.6.1.4.1.62245.2.1.5.2'
+        code_point: '0xff26'
         enable: false
       -
         name: 'CROSSrsdp192small'
         pretty_name: 'CROSS-rsdp-192-small'
         oqs_meth: 'OQS_SIG_alg_cross_rsdp_192_small'
-        oid: '1.3.6.1.4.1.62245.2.1.6'
-        code_point: '0xfefb'
+        oid: '1.3.6.1.4.1.62245.2.1.6.2'
+        code_point: '0xff27'
         enable: false
       # RSDP 256
       # CROSS variants rsdp-256-balanced and rsdp-256-fast are missing because 
@@ -1637,72 +1637,207 @@ sigs:
         name: 'CROSSrsdp256small'
         pretty_name: 'CROSS-rsdp-256-small'
         oqs_meth: 'OQS_SIG_alg_cross_rsdp_256_small'
-        oid: '1.3.6.1.4.1.62245.2.1.9'
-        code_point: '0xfefc'
+        oid: '1.3.6.1.4.1.62245.2.1.9.2'
+        code_point: '0xff28'
         enable: false
       # RSDPG 128
       -
         name: 'CROSSrsdpg128balanced'
         pretty_name: 'CROSS-rsdpg-128-balanced'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_128_balanced'
-        oid: '1.3.6.1.4.1.62245.2.1.10'
-        code_point: '0xfefd'
+        oid: '1.3.6.1.4.1.62245.2.1.10.2'
+        code_point: '0xff29'
         enable: false
       -
         name: 'CROSSrsdpg128fast'
         pretty_name: 'CROSS-rsdpg-128-fast'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_128_fast'
-        oid: '1.3.6.1.4.1.62245.2.1.11'
-        code_point: '0xfefe'
+        oid: '1.3.6.1.4.1.62245.2.1.11.2'
+        code_point: '0xff2a'
         enable: false
       -
         name: 'CROSSrsdpg128small'
         pretty_name: 'CROSS-rsdpg-128-small'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_128_small'
-        oid: '1.3.6.1.4.1.62245.2.1.12'
-        code_point: '0xfeff'
+        oid: '1.3.6.1.4.1.62245.2.1.12.2'
+        code_point: '0xff2b'
         enable: false
       # RSDPG 192
       -
         name: 'CROSSrsdpg192balanced'
         pretty_name: 'CROSS-rsdpg-192-balanced'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_192_balanced'
-        oid: '1.3.6.1.4.1.62245.2.1.13'
-        code_point: '0xff00'
+        oid: '1.3.6.1.4.1.62245.2.1.13.2'
+        code_point: '0xff2c'
         enable: false
       -
         name: 'CROSSrsdpg192fast'
         pretty_name: 'CROSS-rsdpg-192-fast'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_192_fast'
-        oid: '1.3.6.1.4.1.62245.2.1.14'
-        code_point: '0xff01'
+        oid: '1.3.6.1.4.1.62245.2.1.14.2'
+        code_point: '0xff2d'
         enable: false
       -
         name: 'CROSSrsdpg192small'
         pretty_name: 'CROSS-rsdpg-192-small'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_192_small'
-        oid: '1.3.6.1.4.1.62245.2.1.15'
-        code_point: '0xff02'
+        oid: '1.3.6.1.4.1.62245.2.1.15.2'
+        code_point: '0xff2e'
         enable: false
       # RSDPG 256
       -
         name: 'CROSSrsdpg256balanced'
         pretty_name: 'CROSS-rsdpg-256-balanced'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_256_balanced'
-        oid: '1.3.6.1.4.1.62245.2.1.16'
-        code_point: '0xff03'
+        oid: '1.3.6.1.4.1.62245.2.1.16.2'
+        code_point: '0xff2f'
         enable: false
       -
         name: 'CROSSrsdpg256fast'
         pretty_name: 'CROSS-rsdpg-256-fast'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_256_fast'
-        oid: '1.3.6.1.4.1.62245.2.1.17'
-        code_point: '0xff04'
+        oid: '1.3.6.1.4.1.62245.2.1.17.2'
+        code_point: '0xff30'
         enable: false
       -
         name: 'CROSSrsdpg256small'
         pretty_name: 'CROSS-rsdpg-256-small'
         oqs_meth: 'OQS_SIG_alg_cross_rsdpg_256_small'
-        oid: '1.3.6.1.4.1.62245.2.1.18'
-        code_point: '0xff05'
+        oid: '1.3.6.1.4.1.62245.2.1.18.2'
+        code_point: '0xff31'
         enable: false
+  -
+    family: 'UOV'
+    variants:
+      -
+        name: 'OV_Is'
+        pretty_name: 'OV-Is'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_Is'
+        oid: '1.3.9999.9.1.1'
+        code_point: '0xff0a'
+        enable: false
+        mix_with: [{'name': 'p256',
+                    'pretty_name': 'ECDSA p256',
+                    'oid': '1.3.9999.9.1.2',
+                    'code_point': '0xff16'}]
+      -
+        name: 'OV_Ip'
+        pretty_name: 'OV-Ip'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_Ip'
+        oid: '1.3.9999.9.2.1'
+        code_point: '0xff0b'
+        enable: false
+        mix_with: [{'name': 'p256',
+                    'pretty_name': 'ECDSA p256',
+                    'oid': '1.3.9999.9.2.2',
+                    'code_point': '0xff17'}]
+      -
+        name: 'OV_III'
+        pretty_name: 'OV-III'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_III'
+        oid: '1.3.9999.9.3.1'
+        code_point: '0xff0c'
+        enable: false
+        mix_with: [{'name': 'p384',
+                    'pretty_name': 'ECDSA p384',
+                    'oid': '1.3.9999.9.3.2',
+                    'code_point': '0xff18'}]
+      -
+        name: 'OV_V'
+        pretty_name: 'OV-V'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_V'
+        oid: '1.3.9999.9.4.1'
+        code_point: '0xff0d'
+        enable: false
+        mix_with: [{'name': 'p521',
+                    'pretty_name': 'ECDSA p521',
+                    'oid': '1.3.9999.9.4.2',
+                    'code_point': '0xff19'}]
+      -
+        name: 'OV_Is_pkc'
+        pretty_name: 'OV-Is-pkc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_Is_pkc'
+        oid: '1.3.9999.9.5.1'
+        code_point: '0xff0e'
+        enable: true
+        mix_with: [{'name': 'p256',
+                    'pretty_name': 'ECDSA p256',
+                    'oid': '1.3.9999.9.5.2',
+                    'code_point': '0xff1a'}]
+      -
+        name: 'OV_Ip_pkc'
+        pretty_name: 'OV-Ip-pkc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_Ip_pkc'
+        oid: '1.3.9999.9.6.1'
+        code_point: '0xff0f'
+        enable: true
+        mix_with: [{'name': 'p256',
+                    'pretty_name': 'ECDSA p256',
+                    'oid': '1.3.9999.9.6.2',
+                    'code_point': '0xff1b'}]
+      -
+        name: 'OV_III_pkc'
+        pretty_name: 'OV-III-pkc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_III_pkc'
+        oid: '1.3.9999.9.7.1'
+        code_point: '0xff10'
+        enable: false
+        mix_with: [{'name': 'p384',
+                    'pretty_name': 'ECDSA p384',
+                    'oid': '1.3.9999.9.7.2',
+                    'code_point': '0xff1c'}]
+      -
+        name: 'OV_V_pkc'
+        pretty_name: 'OV-V-pkc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_V_pkc'
+        oid: '1.3.9999.9.8.1'
+        code_point: '0xff11'
+        enable: false
+        mix_with: [{'name': 'p521',
+                    'pretty_name': 'ECDSA p521',
+                    'oid': '1.3.9999.9.8.2',
+                    'code_point': '0xff1d'}]
+      -
+        name: 'OV_Is_pkc_skc'
+        pretty_name: 'OV-Is-pkc-skc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_Is_pkc_skc'
+        oid: '1.3.9999.9.9.1'
+        code_point: '0xff12'
+        enable: true
+        mix_with: [{'name': 'p256',
+                    'pretty_name': 'ECDSA p256',
+                    'oid': '1.3.9999.9.9.2',
+                    'code_point': '0xff1e'}]
+      -
+        name: 'OV_Ip_pkc_skc'
+        pretty_name: 'OV-Ip-pkc-skc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_Ip_pkc_skc'
+        oid: '1.3.9999.9.10.1'
+        code_point: '0xff13'
+        enable: true
+        mix_with: [{'name': 'p256',
+                    'pretty_name': 'ECDSA p256',
+                    'oid': '1.3.9999.9.10.2',
+                    'code_point': '0xff1f'}]
+      -
+        name: 'OV_III_pkc_skc'
+        pretty_name: 'OV-III-pkc-skc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_III_pkc_skc'
+        oid: '1.3.9999.9.11.1'
+        code_point: '0xff14'
+        enable: false
+        mix_with: [{'name': 'p384',
+                    'pretty_name': 'ECDSA p384',
+                    'oid': '1.3.9999.9.11.2',
+                    'code_point': '0xff20'}]
+      -
+        name: 'OV_V_pkc_skc'
+        pretty_name: 'OV-V-pkc-skc'
+        oqs_meth: 'OQS_SIG_alg_uov_ov_V_pkc_skc'
+        oid: '1.3.9999.9.12.1'
+        code_point: '0xff15'
+        enable: false
+        mix_with: [{'name': 'p521',
+                    'pretty_name': 'ECDSA p521',
+                    'oid': '1.3.9999.9.12.2',
+                    'code_point': '0xff21'}]

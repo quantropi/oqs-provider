@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         ossl-branch: [openssl-3.4.0, master]
-        cmake-params: [ "", "-DOQS_KEM_ENCODERS=ON" ]
+        cmake-params: [ "-DOQS_KEM_ENCODERS=OFF", "-DOQS_KEM_ENCODERS=ON" ]
         libjade-build: ["ON" , "OFF"]
         include:
           - name: alpine

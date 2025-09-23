@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ossl-branch: [openssl-3.4.0, master]
+        ossl-branch: [openssl-3.4.1, openssl-3.5.0, master] # retain openssl-3.4.1 to test non-OpenSSL PQ alg implementations
         cmake-params: [ "-DOQS_KEM_ENCODERS=OFF", "-DOQS_KEM_ENCODERS=ON" ]
         libjade-build: ["ON" , "OFF"]
         include:
@@ -33,8 +33,6 @@ jobs:
         run: git config --global --add safe.directory /__w/oqs-provider/oqs-provider
       - name: Full build
         run: OQSPROV_CMAKE_PARAMS=${{ matrix.cmake-params}} OPENSSL_BRANCH=${{ matrix.ossl-branch }} LIBOQS_BRANCH=main OQS_LIBJADE_BUILD=${{ matrix.libjade-build }} ./scripts/fullbuild.sh
-      - name: Enable sibling oqsprovider for testing
-        run: cd _build/lib && ln -s oqsprovider.so oqsprovider2.so
       - name: Test
         run: ./scripts/runtests.sh -V
       - name: Re-generate code
@@ -78,7 +76,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
 
       - name: Install dependencies
         run: apt-get update && apt-get install -y ninja-build git cmake nodejs gcc-aarch64-linux-gnu libc6-dev-arm64-cross qemu-user
@@ -152,3 +150,4 @@ jobs:
         with:
           name: linux-aarch64-oqs-provider
           path: build/*.deb
+

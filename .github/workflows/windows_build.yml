@@ -14,8 +14,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - windows-2019
-#          - windows-2022
+          - windows-latest
         platform:
           - arch: win64
             oqsconfig: -DOQS_ALGS_ENABLED=STD
@@ -110,7 +109,6 @@ jobs:
       matrix:
         os:
 # liboqs doesn't check Windows 2019
-          - windows-2019
           - windows-2022
         platform:
           - arch: win64
@@ -220,7 +218,6 @@ jobs:
     strategy:
       matrix:
         os:
-          - windows-2019
           - windows-2022
         platform:
           - arch: win64

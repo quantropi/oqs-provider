@@ -66,20 +66,23 @@ static OQS_GROUP_CONSTANTS oqs_group_list[] = {
 
     {0x2F4B, 128, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
     {0x2FB6, 128, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
+    {65056, 128, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
     {513, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
 
     {0x2F4C, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
     {0x2FB7, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
+    {65057, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
     {0x11ec, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
     {0x11eb, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
     {514, 256, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
 
     {0x2F4D, 256, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
     {0x11ED, 256, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
-    {65040, 128, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
+    {65058, 256, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
+    {65040, 128, -1, 0, -1, 0, 1},
 
-    {65041, 128, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
-    {65042, 128, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
+    {65041, 128, -1, 0, -1, 0, 1},
+    {65042, 128, -1, 0, -1, 0, 1},
     {65043, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
 
     {65044, 192, TLS1_3_VERSION, 0, DTLS1_3_VERSION, 0, 1},
@@ -90,7 +93,7 @@ static OQS_GROUP_CONSTANTS oqs_group_list[] = {
     ///// OQS_TEMPLATE_FRAGMENT_GROUP_ASSIGNMENTS_END
 };
 
-// Adds entries for tlsname, `ecx`_tlsname and `ecp`_tlsname
+// Adds entries for tlsname, `ecx`_tlsname, `ecbp`_tlsname and `ecp`_tlsname
 #define OQS_GROUP_ENTRY(tlsname, realname, algorithm, idx)                     \
     {                                                                          \
         OSSL_PARAM_utf8_string(OSSL_CAPABILITY_TLS_GROUP_NAME, #tlsname,       \
@@ -165,39 +168,42 @@ static const OSSL_PARAM oqs_param_group_list[][11] = {
 
     OQS_GROUP_ENTRY(p256_mlkem512, p256_mlkem512, p256_mlkem512, 17),
     OQS_GROUP_ENTRY(x25519_mlkem512, x25519_mlkem512, x25519_mlkem512, 18),
+    OQS_GROUP_ENTRY(bp256_mlkem512, bp256_mlkem512, bp256_mlkem512, 19),
 #endif
 #ifdef OQS_ENABLE_KEM_ml_kem_768
-    OQS_GROUP_ENTRY(mlkem768, mlkem768, mlkem768, 19),
+    OQS_GROUP_ENTRY(mlkem768, mlkem768, mlkem768, 20),
 
-    OQS_GROUP_ENTRY(p384_mlkem768, p384_mlkem768, p384_mlkem768, 20),
-    OQS_GROUP_ENTRY(x448_mlkem768, x448_mlkem768, x448_mlkem768, 21),
-    OQS_GROUP_ENTRY(X25519MLKEM768, X25519MLKEM768, X25519MLKEM768, 22),
+    OQS_GROUP_ENTRY(p384_mlkem768, p384_mlkem768, p384_mlkem768, 21),
+    OQS_GROUP_ENTRY(x448_mlkem768, x448_mlkem768, x448_mlkem768, 22),
+    OQS_GROUP_ENTRY(bp384_mlkem768, bp384_mlkem768, bp384_mlkem768, 23),
+    OQS_GROUP_ENTRY(X25519MLKEM768, X25519MLKEM768, X25519MLKEM768, 24),
     OQS_GROUP_ENTRY(SecP256r1MLKEM768, SecP256r1MLKEM768, SecP256r1MLKEM768,
-                    23),
+                    25),
 #endif
 #ifdef OQS_ENABLE_KEM_ml_kem_1024
-    OQS_GROUP_ENTRY(mlkem1024, mlkem1024, mlkem1024, 24),
+    OQS_GROUP_ENTRY(mlkem1024, mlkem1024, mlkem1024, 26),
 
-    OQS_GROUP_ENTRY(p521_mlkem1024, p521_mlkem1024, p521_mlkem1024, 25),
+    OQS_GROUP_ENTRY(p521_mlkem1024, p521_mlkem1024, p521_mlkem1024, 27),
     OQS_GROUP_ENTRY(SecP384r1MLKEM1024, SecP384r1MLKEM1024, SecP384r1MLKEM1024,
-                    26),
+                    28),
+    OQS_GROUP_ENTRY(bp512_mlkem1024, bp512_mlkem1024, bp512_mlkem1024, 29),
 #endif
 #ifdef OQS_ENABLE_KEM_bike_l1
-    OQS_GROUP_ENTRY(bikel1, bikel1, bikel1, 27),
+    OQS_GROUP_ENTRY(bikel1, bikel1, bikel1, 30),
 
-    OQS_GROUP_ENTRY(p256_bikel1, p256_bikel1, p256_bikel1, 28),
-    OQS_GROUP_ENTRY(x25519_bikel1, x25519_bikel1, x25519_bikel1, 29),
+    OQS_GROUP_ENTRY(p256_bikel1, p256_bikel1, p256_bikel1, 31),
+    OQS_GROUP_ENTRY(x25519_bikel1, x25519_bikel1, x25519_bikel1, 32),
 #endif
 #ifdef OQS_ENABLE_KEM_bike_l3
-    OQS_GROUP_ENTRY(bikel3, bikel3, bikel3, 30),
+    OQS_GROUP_ENTRY(bikel3, bikel3, bikel3, 33),
 
-    OQS_GROUP_ENTRY(p384_bikel3, p384_bikel3, p384_bikel3, 31),
-    OQS_GROUP_ENTRY(x448_bikel3, x448_bikel3, x448_bikel3, 32),
+    OQS_GROUP_ENTRY(p384_bikel3, p384_bikel3, p384_bikel3, 34),
+    OQS_GROUP_ENTRY(x448_bikel3, x448_bikel3, x448_bikel3, 35),
 #endif
 #ifdef OQS_ENABLE_KEM_bike_l5
-    OQS_GROUP_ENTRY(bikel5, bikel5, bikel5, 33),
+    OQS_GROUP_ENTRY(bikel5, bikel5, bikel5, 36),
 
-    OQS_GROUP_ENTRY(p521_bikel5, p521_bikel5, p521_bikel5, 34),
+    OQS_GROUP_ENTRY(p521_bikel5, p521_bikel5, p521_bikel5, 37),
 #endif
     ///// OQS_TEMPLATE_FRAGMENT_GROUP_NAMES_END
 };
@@ -212,34 +218,73 @@ typedef struct oqs_sigalg_constants_st {
 static OQS_SIGALG_CONSTANTS oqs_sigalg_list[] = {
     // ad-hoc assignments - take from OQS generate data structures
     ///// OQS_TEMPLATE_FRAGMENT_SIGALG_ASSIGNMENTS_START
-    {0x0904, 128, TLS1_3_VERSION, 0}, {0xff06, 128, TLS1_3_VERSION, 0},
-    {0xff07, 128, TLS1_3_VERSION, 0}, {0x0905, 192, TLS1_3_VERSION, 0},
-    {0xff08, 192, TLS1_3_VERSION, 0}, {0x0906, 256, TLS1_3_VERSION, 0},
-    {0xff09, 256, TLS1_3_VERSION, 0}, {0xfed7, 128, TLS1_3_VERSION, 0},
-    {0xfed8, 128, TLS1_3_VERSION, 0}, {0xfed9, 128, TLS1_3_VERSION, 0},
-    {0xfedc, 128, TLS1_3_VERSION, 0}, {0xfedd, 128, TLS1_3_VERSION, 0},
-    {0xfede, 128, TLS1_3_VERSION, 0}, {0xfeda, 256, TLS1_3_VERSION, 0},
-    {0xfedb, 256, TLS1_3_VERSION, 0}, {0xfedf, 256, TLS1_3_VERSION, 0},
-    {0xfee0, 256, TLS1_3_VERSION, 0}, {0xfeb3, 128, TLS1_3_VERSION, 0},
-    {0xfeb4, 128, TLS1_3_VERSION, 0}, {0xfeb5, 128, TLS1_3_VERSION, 0},
-    {0xfeb6, 128, TLS1_3_VERSION, 0}, {0xfeb7, 128, TLS1_3_VERSION, 0},
-    {0xfeb8, 128, TLS1_3_VERSION, 0}, {0xfeb9, 192, TLS1_3_VERSION, 0},
-    {0xfeba, 192, TLS1_3_VERSION, 0}, {0xfec2, 128, TLS1_3_VERSION, 0},
-    {0xfec3, 128, TLS1_3_VERSION, 0}, {0xfec4, 128, TLS1_3_VERSION, 0},
-    {0xff32, 128, TLS1_3_VERSION, 0}, {0xff36, 128, TLS1_3_VERSION, 0},
-    {0xff33, 128, TLS1_3_VERSION, 0}, {0xff37, 128, TLS1_3_VERSION, 0},
-    {0xff34, 192, TLS1_3_VERSION, 0}, {0xff38, 192, TLS1_3_VERSION, 0},
-    {0xff35, 256, TLS1_3_VERSION, 0}, {0xff39, 256, TLS1_3_VERSION, 0},
-    {0xff53, 128, TLS1_3_VERSION, 0}, {0xff0e, 128, TLS1_3_VERSION, 0},
-    {0xff1a, 128, TLS1_3_VERSION, 0}, {0xff0f, 128, TLS1_3_VERSION, 0},
-    {0xff1b, 128, TLS1_3_VERSION, 0}, {0xff12, 128, TLS1_3_VERSION, 0},
-    {0xff1e, 128, TLS1_3_VERSION, 0}, {0xff13, 128, TLS1_3_VERSION, 0},
-    {0xff1f, 128, TLS1_3_VERSION, 0}, {0xff3a, 128, TLS1_3_VERSION, 0},
-    {0xff3b, 128, TLS1_3_VERSION, 0}, {0xff3e, 128, TLS1_3_VERSION, 0},
-    {0xff3f, 128, TLS1_3_VERSION, 0}, {0xff42, 128, TLS1_3_VERSION, 0},
-    {0xff43, 128, TLS1_3_VERSION, 0}, {0xff4c, 192, TLS1_3_VERSION, 0},
-    {0xff4d, 192, TLS1_3_VERSION, 0}, {0xff51, 256, TLS1_3_VERSION, 0},
+    {0x0904, 128, TLS1_3_VERSION, 0},
+    {0xff06, 128, TLS1_3_VERSION, 0},
+    {0xff07, 128, TLS1_3_VERSION, 0},
+    {0x0905, 192, TLS1_3_VERSION, 0},
+    {0xff08, 192, TLS1_3_VERSION, 0},
+    {0x0906, 256, TLS1_3_VERSION, 0},
+    {0xff09, 256, TLS1_3_VERSION, 0},
+    {0xfed7, 128, TLS1_3_VERSION, 0},
+    {0xfed8, 128, TLS1_3_VERSION, 0},
+    {0xfed9, 128, TLS1_3_VERSION, 0},
+    {0xfedc, 128, TLS1_3_VERSION, 0},
+    {0xfedd, 128, TLS1_3_VERSION, 0},
+    {0xfede, 128, TLS1_3_VERSION, 0},
+    {0xfeda, 256, TLS1_3_VERSION, 0},
+    {0xfedb, 256, TLS1_3_VERSION, 0},
+    {0xfedf, 256, TLS1_3_VERSION, 0},
+    {0xfee0, 256, TLS1_3_VERSION, 0},
+    {0xfeb3, 128, TLS1_3_VERSION, 0},
+    {0xfeb4, 128, TLS1_3_VERSION, 0},
+    {0xfeb5, 128, TLS1_3_VERSION, 0},
+    {0xfeb6, 128, TLS1_3_VERSION, 0},
+    {0xfeb7, 128, TLS1_3_VERSION, 0},
+    {0xfeb8, 128, TLS1_3_VERSION, 0},
+    {0xfeb9, 192, TLS1_3_VERSION, 0},
+    {0xfeba, 192, TLS1_3_VERSION, 0},
+    {0xfec2, 128, TLS1_3_VERSION, 0},
+    {0xfec3, 128, TLS1_3_VERSION, 0},
+    {0xfec4, 128, TLS1_3_VERSION, 0},
+    {0xff32, 128, TLS1_3_VERSION, 0},
+    {0xff36, 128, TLS1_3_VERSION, 0},
+    {0xff33, 128, TLS1_3_VERSION, 0},
+    {0xff37, 128, TLS1_3_VERSION, 0},
+    {0xff34, 192, TLS1_3_VERSION, 0},
+    {0xff38, 192, TLS1_3_VERSION, 0},
+    {0xff35, 256, TLS1_3_VERSION, 0},
+    {0xff39, 256, TLS1_3_VERSION, 0},
+    {0xff53, 128, TLS1_3_VERSION, 0},
+    {0xff0e, 128, -1, 0},
+    {0xff1a, 128, -1, 0},
+    {0xff0f, 128, TLS1_3_VERSION, 0},
+    {0xff1b, 128, TLS1_3_VERSION, 0},
+    {0xff12, 128, -1, 0},
+    {0xff1e, 128, -1, 0},
+    {0xff13, 128, TLS1_3_VERSION, 0},
+    {0xff1f, 128, TLS1_3_VERSION, 0},
+    {0xff3a, 128, TLS1_3_VERSION, 0},
+    {0xff3b, 128, TLS1_3_VERSION, 0},
+    {0xff3e, 128, TLS1_3_VERSION, 0},
+    {0xff3f, 128, TLS1_3_VERSION, 0},
+    {0xff42, 128, TLS1_3_VERSION, 0},
+    {0xff43, 128, TLS1_3_VERSION, 0},
+    {0xff4c, 192, TLS1_3_VERSION, 0},
+    {0xff4d, 192, TLS1_3_VERSION, 0},
+    {0xff51, 256, TLS1_3_VERSION, 0},
     {0xff52, 256, TLS1_3_VERSION, 0},
+    {0x0911, 128, TLS1_3_VERSION, 0},
+    {0x0912, 128, TLS1_3_VERSION, 0},
+    {0x0913, 192, TLS1_3_VERSION, 0},
+    {0x0914, 192, TLS1_3_VERSION, 0},
+    {0x0915, 256, TLS1_3_VERSION, 0},
+    {0x0916, 256, TLS1_3_VERSION, 0},
+    {0x0917, 128, TLS1_3_VERSION, 0},
+    {0x0918, 128, TLS1_3_VERSION, 0},
+    {0x0919, 192, TLS1_3_VERSION, 0},
+    {0x091A, 192, TLS1_3_VERSION, 0},
+    {0x091B, 256, TLS1_3_VERSION, 0},
+    {0x091C, 256, TLS1_3_VERSION, 0},
     ///// OQS_TEMPLATE_FRAGMENT_SIGALG_ASSIGNMENTS_END
 };
 
@@ -299,45 +344,54 @@ int oqs_patch_codepoints() {
     if (getenv("OQS_CODEPOINT_X25519_MLKEM512"))
         oqs_group_list[18].group_id =
             atoi(getenv("OQS_CODEPOINT_X25519_MLKEM512"));
+    if (getenv("OQS_CODEPOINT_BP256_MLKEM512"))
+        oqs_group_list[19].group_id =
+            atoi(getenv("OQS_CODEPOINT_BP256_MLKEM512"));
     if (getenv("OQS_CODEPOINT_MLKEM768"))
-        oqs_group_list[19].group_id = atoi(getenv("OQS_CODEPOINT_MLKEM768"));
+        oqs_group_list[20].group_id = atoi(getenv("OQS_CODEPOINT_MLKEM768"));
     if (getenv("OQS_CODEPOINT_P384_MLKEM768"))
-        oqs_group_list[20].group_id =
+        oqs_group_list[21].group_id =
             atoi(getenv("OQS_CODEPOINT_P384_MLKEM768"));
     if (getenv("OQS_CODEPOINT_X448_MLKEM768"))
-        oqs_group_list[21].group_id =
-            atoi(getenv("OQS_CODEPOINT_X448_MLKEM768"));
-    if (getenv("OQS_CODEPOINT_X25519MLKEM768"))
         oqs_group_list[22].group_id =
+            atoi(getenv("OQS_CODEPOINT_X448_MLKEM768"));
+    if (getenv("OQS_CODEPOINT_BP384_MLKEM768"))
+        oqs_group_list[23].group_id =
+            atoi(getenv("OQS_CODEPOINT_BP384_MLKEM768"));
+    if (getenv("OQS_CODEPOINT_X25519MLKEM768"))
+        oqs_group_list[24].group_id =
             atoi(getenv("OQS_CODEPOINT_X25519MLKEM768"));
     if (getenv("OQS_CODEPOINT_SECP256R1MLKEM768"))
-        oqs_group_list[23].group_id =
+        oqs_group_list[25].group_id =
             atoi(getenv("OQS_CODEPOINT_SECP256R1MLKEM768"));
     if (getenv("OQS_CODEPOINT_MLKEM1024"))
-        oqs_group_list[24].group_id = atoi(getenv("OQS_CODEPOINT_MLKEM1024"));
+        oqs_group_list[26].group_id = atoi(getenv("OQS_CODEPOINT_MLKEM1024"));
     if (getenv("OQS_CODEPOINT_P521_MLKEM1024"))
-        oqs_group_list[25].group_id =
+        oqs_group_list[27].group_id =
             atoi(getenv("OQS_CODEPOINT_P521_MLKEM1024"));
     if (getenv("OQS_CODEPOINT_SECP384R1MLKEM1024"))
-        oqs_group_list[26].group_id =
+        oqs_group_list[28].group_id =
             atoi(getenv("OQS_CODEPOINT_SECP384R1MLKEM1024"));
-    if (getenv("OQS_CODEPOINT_BIKEL1"))
-        oqs_group_list[27].group_id = atoi(getenv("OQS_CODEPOINT_BIKEL1"));
-    if (getenv("OQS_CODEPOINT_P256_BIKEL1"))
-        oqs_group_list[28].group_id = atoi(getenv("OQS_CODEPOINT_P256_BIKEL1"));
-    if (getenv("OQS_CODEPOINT_X25519_BIKEL1"))
+    if (getenv("OQS_CODEPOINT_BP512_MLKEM1024"))
         oqs_group_list[29].group_id =
+            atoi(getenv("OQS_CODEPOINT_BP512_MLKEM1024"));
+    if (getenv("OQS_CODEPOINT_BIKEL1"))
+        oqs_group_list[30].group_id = atoi(getenv("OQS_CODEPOINT_BIKEL1"));
+    if (getenv("OQS_CODEPOINT_P256_BIKEL1"))
+        oqs_group_list[31].group_id = atoi(getenv("OQS_CODEPOINT_P256_BIKEL1"));
+    if (getenv("OQS_CODEPOINT_X25519_BIKEL1"))
+        oqs_group_list[32].group_id =
             atoi(getenv("OQS_CODEPOINT_X25519_BIKEL1"));
     if (getenv("OQS_CODEPOINT_BIKEL3"))
-        oqs_group_list[30].group_id = atoi(getenv("OQS_CODEPOINT_BIKEL3"));
+        oqs_group_list[33].group_id = atoi(getenv("OQS_CODEPOINT_BIKEL3"));
     if (getenv("OQS_CODEPOINT_P384_BIKEL3"))
-        oqs_group_list[31].group_id = atoi(getenv("OQS_CODEPOINT_P384_BIKEL3"));
+        oqs_group_list[34].group_id = atoi(getenv("OQS_CODEPOINT_P384_BIKEL3"));
     if (getenv("OQS_CODEPOINT_X448_BIKEL3"))
-        oqs_group_list[32].group_id = atoi(getenv("OQS_CODEPOINT_X448_BIKEL3"));
+        oqs_group_list[35].group_id = atoi(getenv("OQS_CODEPOINT_X448_BIKEL3"));
     if (getenv("OQS_CODEPOINT_BIKEL5"))
-        oqs_group_list[33].group_id = atoi(getenv("OQS_CODEPOINT_BIKEL5"));
+        oqs_group_list[36].group_id = atoi(getenv("OQS_CODEPOINT_BIKEL5"));
     if (getenv("OQS_CODEPOINT_P521_BIKEL5"))
-        oqs_group_list[34].group_id = atoi(getenv("OQS_CODEPOINT_P521_BIKEL5"));
+        oqs_group_list[37].group_id = atoi(getenv("OQS_CODEPOINT_P521_BIKEL5"));
 
     if (getenv("OQS_CODEPOINT_MLDSA44"))
         oqs_sigalg_list[0].code_point = atoi(getenv("OQS_CODEPOINT_MLDSA44"));
@@ -496,6 +550,42 @@ int oqs_patch_codepoints() {
     if (getenv("OQS_CODEPOINT_P521_SNOVA2965"))
         oqs_sigalg_list[54].code_point =
             atoi(getenv("OQS_CODEPOINT_P521_SNOVA2965"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHA2128S"))
+        oqs_sigalg_list[55].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHA2128S"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHA2128F"))
+        oqs_sigalg_list[56].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHA2128F"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHA2192S"))
+        oqs_sigalg_list[57].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHA2192S"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHA2192F"))
+        oqs_sigalg_list[58].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHA2192F"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHA2256S"))
+        oqs_sigalg_list[59].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHA2256S"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHA2256F"))
+        oqs_sigalg_list[60].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHA2256F"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHAKE128S"))
+        oqs_sigalg_list[61].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHAKE128S"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHAKE128F"))
+        oqs_sigalg_list[62].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHAKE128F"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHAKE192S"))
+        oqs_sigalg_list[63].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHAKE192S"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHAKE192F"))
+        oqs_sigalg_list[64].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHAKE192F"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHAKE256S"))
+        oqs_sigalg_list[65].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHAKE256S"));
+    if (getenv("OQS_CODEPOINT_SLHDSASHAKE256F"))
+        oqs_sigalg_list[66].code_point =
+            atoi(getenv("OQS_CODEPOINT_SLHDSASHAKE256F"));
     ///// OQS_TEMPLATE_FRAGMENT_CODEPOINT_PATCHING_END
     return 1;
 }
@@ -634,42 +724,101 @@ static const OSSL_PARAM oqs_param_sigalg_list[][12] = {
     OQS_SIGALG_ENTRY(CROSSrsdp128balanced, CROSSrsdp128balanced,
                      CROSSrsdp128balanced, "1.3.6.1.4.1.62245.2.1.1.2.2", 36),
 #endif
+#ifdef OQS_ENABLE_SIG_uov_ov_Is_pkc
+    OQS_SIGALG_ENTRY(OV_Is_pkc, OV_Is_pkc, OV_Is_pkc, "1.3.9999.9.5.1", 37),
+    OQS_SIGALG_ENTRY(p256_OV_Is_pkc, p256_OV_Is_pkc, p256_OV_Is_pkc,
+                     "1.3.9999.9.5.2", 38),
+#endif
 #ifdef OQS_ENABLE_SIG_uov_ov_Ip_pkc
-    OQS_SIGALG_ENTRY(OV_Ip_pkc, OV_Ip_pkc, OV_Ip_pkc, "1.3.9999.9.6.1", 37),
+    OQS_SIGALG_ENTRY(OV_Ip_pkc, OV_Ip_pkc, OV_Ip_pkc, "1.3.9999.9.6.1", 39),
     OQS_SIGALG_ENTRY(p256_OV_Ip_pkc, p256_OV_Ip_pkc, p256_OV_Ip_pkc,
-                     "1.3.9999.9.6.2", 38),
+                     "1.3.9999.9.6.2", 40),
+#endif
+#ifdef OQS_ENABLE_SIG_uov_ov_Is_pkc_skc
+    OQS_SIGALG_ENTRY(OV_Is_pkc_skc, OV_Is_pkc_skc, OV_Is_pkc_skc,
+                     "1.3.9999.9.9.1", 41),
+    OQS_SIGALG_ENTRY(p256_OV_Is_pkc_skc, p256_OV_Is_pkc_skc, p256_OV_Is_pkc_skc,
+                     "1.3.9999.9.9.2", 42),
 #endif
 #ifdef OQS_ENABLE_SIG_uov_ov_Ip_pkc_skc
     OQS_SIGALG_ENTRY(OV_Ip_pkc_skc, OV_Ip_pkc_skc, OV_Ip_pkc_skc,
-                     "1.3.9999.9.10.1", 39),
+                     "1.3.9999.9.10.1", 43),
     OQS_SIGALG_ENTRY(p256_OV_Ip_pkc_skc, p256_OV_Ip_pkc_skc, p256_OV_Ip_pkc_skc,
-                     "1.3.9999.9.10.2", 40),
+                     "1.3.9999.9.10.2", 44),
 #endif
 #ifdef OQS_ENABLE_SIG_snova_SNOVA_24_5_4
-    OQS_SIGALG_ENTRY(snova2454, snova2454, snova2454, "1.3.9999.10.1.1", 41),
+    OQS_SIGALG_ENTRY(snova2454, snova2454, snova2454, "1.3.9999.10.1.1", 45),
     OQS_SIGALG_ENTRY(p256_snova2454, p256_snova2454, p256_snova2454,
-                     "1.3.9999.10.1.2", 42),
+                     "1.3.9999.10.1.2", 46),
 #endif
 #ifdef OQS_ENABLE_SIG_snova_SNOVA_24_5_4_esk
     OQS_SIGALG_ENTRY(snova2454esk, snova2454esk, snova2454esk,
-                     "1.3.9999.10.3.1", 43),
+                     "1.3.9999.10.3.1", 47),
     OQS_SIGALG_ENTRY(p256_snova2454esk, p256_snova2454esk, p256_snova2454esk,
-                     "1.3.9999.10.3.2", 44),
+                     "1.3.9999.10.3.2", 48),
 #endif
 #ifdef OQS_ENABLE_SIG_snova_SNOVA_37_17_2
-    OQS_SIGALG_ENTRY(snova37172, snova37172, snova37172, "1.3.9999.10.5.1", 45),
+    OQS_SIGALG_ENTRY(snova37172, snova37172, snova37172, "1.3.9999.10.5.1", 49),
     OQS_SIGALG_ENTRY(p256_snova37172, p256_snova37172, p256_snova37172,
-                     "1.3.9999.10.5.2", 46),
+                     "1.3.9999.10.5.2", 50),
 #endif
 #ifdef OQS_ENABLE_SIG_snova_SNOVA_24_5_5
-    OQS_SIGALG_ENTRY(snova2455, snova2455, snova2455, "1.3.9999.10.10.1", 47),
+    OQS_SIGALG_ENTRY(snova2455, snova2455, snova2455, "1.3.9999.10.10.1", 51),
     OQS_SIGALG_ENTRY(p384_snova2455, p384_snova2455, p384_snova2455,
-                     "1.3.9999.10.10.2", 48),
+                     "1.3.9999.10.10.2", 52),
 #endif
 #ifdef OQS_ENABLE_SIG_snova_SNOVA_29_6_5
-    OQS_SIGALG_ENTRY(snova2965, snova2965, snova2965, "1.3.9999.10.12.1", 49),
+    OQS_SIGALG_ENTRY(snova2965, snova2965, snova2965, "1.3.9999.10.12.1", 53),
     OQS_SIGALG_ENTRY(p521_snova2965, p521_snova2965, p521_snova2965,
-                     "1.3.9999.10.12.2", 50),
+                     "1.3.9999.10.12.2", 54),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_sha2_128s
+    OQS_SIGALG_ENTRY(slhdsasha2128s, slhdsasha2128s, slhdsasha2128s,
+                     "2.16.840.1.101.3.4.3.20", 55),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_sha2_128f
+    OQS_SIGALG_ENTRY(slhdsasha2128f, slhdsasha2128f, slhdsasha2128f,
+                     "2.16.840.1.101.3.4.3.21", 56),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_sha2_192s
+    OQS_SIGALG_ENTRY(slhdsasha2192s, slhdsasha2192s, slhdsasha2192s,
+                     "2.16.840.1.101.3.4.3.22", 57),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_sha2_192f
+    OQS_SIGALG_ENTRY(slhdsasha2192f, slhdsasha2192f, slhdsasha2192f,
+                     "2.16.840.1.101.3.4.3.23", 58),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_sha2_256s
+    OQS_SIGALG_ENTRY(slhdsasha2256s, slhdsasha2256s, slhdsasha2256s,
+                     "2.16.840.1.101.3.4.3.24", 59),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_sha2_256f
+    OQS_SIGALG_ENTRY(slhdsasha2256f, slhdsasha2256f, slhdsasha2256f,
+                     "2.16.840.1.101.3.4.3.25", 60),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_shake_128s
+    OQS_SIGALG_ENTRY(slhdsashake128s, slhdsashake128s, slhdsashake128s,
+                     "2.16.840.1.101.3.4.3.26", 61),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_shake_128f
+    OQS_SIGALG_ENTRY(slhdsashake128f, slhdsashake128f, slhdsashake128f,
+                     "2.16.840.1.101.3.4.3.27", 62),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_shake_192s
+    OQS_SIGALG_ENTRY(slhdsashake192s, slhdsashake192s, slhdsashake192s,
+                     "2.16.840.1.101.3.4.3.28", 63),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_shake_192f
+    OQS_SIGALG_ENTRY(slhdsashake192f, slhdsashake192f, slhdsashake192f,
+                     "2.16.840.1.101.3.4.3.29", 64),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_shake_256s
+    OQS_SIGALG_ENTRY(slhdsashake256s, slhdsashake256s, slhdsashake256s,
+                     "2.16.840.1.101.3.4.3.30", 65),
+#endif
+#ifdef OQS_ENABLE_SIG_slh_dsa_pure_shake_256f
+    OQS_SIGALG_ENTRY(slhdsashake256f, slhdsashake256f, slhdsashake256f,
+                     "2.16.840.1.101.3.4.3.31", 66),
 #endif
     ///// OQS_TEMPLATE_FRAGMENT_SIGALG_NAMES_END
 };

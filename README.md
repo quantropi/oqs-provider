@@ -1,7 +1,6 @@
 [![GitHub actions](https://github.com/open-quantum-safe/oqs-provider/actions/workflows/linux.yml/badge.svg)](https://github.com/open-quantum-safe/oqs-provider/actions/workflows/linux.yml)
 [![GitHub actions](https://github.com/open-quantum-safe/oqs-provider/actions/workflows/windows.yml/badge.svg)](https://github.com/open-quantum-safe/oqs-provider/actions/workflows/windows.yml)
 [![GitHub actions](https://github.com/open-quantum-safe/oqs-provider/actions/workflows/macos.yml/badge.svg)](https://github.com/open-quantum-safe/oqs-provider/actions/workflows/macos.yml)
-[![oqs-provider](https://circleci.com/gh/open-quantum-safe/oqs-provider.svg?style=svg)](https://app.circleci.com/pipelines/github/open-quantum-safe/oqs-provider)
 
 oqsprovider - Open Quantum Safe provider for OpenSSL (3.x)
 ==========================================================
@@ -37,12 +36,11 @@ This implementation makes available the following quantum safe algorithms:
 <!--- OQS_TEMPLATE_FRAGMENT_ALGS_START -->
 ### KEM algorithms
 
-- **BIKE**: `bikel1`, `p256_bikel1`, `x25519_bikel1`, `bikel3`, `p384_bikel3`, `x448_bikel3`, `bikel5`, `p521_bikel5`
-- **FrodoKEM**: `frodo640aes`, `p256_frodo640aes`, `x25519_frodo640aes`, `frodo640shake`, `p256_frodo640shake`, `x25519_frodo640shake`, `frodo976aes`, `p384_frodo976aes`, `x448_frodo976aes`, `frodo976shake`, `p384_frodo976shake`, `x448_frodo976shake`, `frodo1344aes`, `p521_frodo1344aes`, `frodo1344shake`, `p521_frodo1344shake`
-- **ML-KEM**: `mlkem512`, `p256_mlkem512`, `x25519_mlkem512`, `mlkem768`, `p384_mlkem768`, `x448_mlkem768`, `X25519MLKEM768`, `SecP256r1MLKEM768`, `mlkem1024`, `p521_mlkem1024`, `SecP384r1MLKEM1024`
+- **BIKE**:`bikel1`\*, `p256_bikel1`\*, `x25519_bikel1`\*, `bikel3`, `p384_bikel3`, `x448_bikel3`, `bikel5`, `p521_bikel5`
+- **FrodoKEM**:`frodo640aes`, `p256_frodo640aes`, `x25519_frodo640aes`, `frodo640shake`, `p256_frodo640shake`, `x25519_frodo640shake`, `frodo976aes`, `p384_frodo976aes`, `x448_frodo976aes`, `frodo976shake`, `p384_frodo976shake`, `x448_frodo976shake`, `frodo1344aes`, `p521_frodo1344aes`, `frodo1344shake`, `p521_frodo1344shake`
+- **ML-KEM**:`mlkem512`, `p256_mlkem512`, `x25519_mlkem512`, `bp256_mlkem512`, `mlkem768`, `p384_mlkem768`, `x448_mlkem768`, `bp384_mlkem768`, `X25519MLKEM768`, `SecP256r1MLKEM768`, `mlkem1024`, `p521_mlkem1024`, `SecP384r1MLKEM1024`, `bp512_mlkem1024`
 
 ### Signature algorithms
-
 
 - **ML-DSA**:`mldsa44`, `p256_mldsa44`, `rsa3072_mldsa44`, `mldsa65`, `p384_mldsa65`, `mldsa87`, `p521_mldsa87`
 - **Falcon**:`falcon512`, `p256_falcon512`, `rsa3072_falcon512`, `falconpadded512`, `p256_falconpadded512`, `rsa3072_falconpadded512`, `falcon1024`, `p521_falcon1024`, `falconpadded1024`, `p521_falconpadded1024`
@@ -53,6 +51,7 @@ This implementation makes available the following quantum safe algorithms:
 - **CROSS**:`CROSSrsdp128balanced`, `CROSSrsdp128fast`\*, `CROSSrsdp128small`\*, `CROSSrsdp192balanced`\*, `CROSSrsdp192fast`\*, `CROSSrsdp192small`\*, `CROSSrsdp256small`\*\*, `CROSSrsdpg128balanced`\*, `CROSSrsdpg128fast`\*, `CROSSrsdpg128small`\*, `CROSSrsdpg192balanced`\*, `CROSSrsdpg192fast`\*, `CROSSrsdpg192small`\*, `CROSSrsdpg256balanced`\*, `CROSSrsdpg256fast`\*, `CROSSrsdpg256small`\*
 - **UOV**:`OV_Is`\*\*, `p256_OV_Is`\*\*, `OV_Ip`\*\*, `p256_OV_Ip`\*\*, `OV_III`\*\*, `p384_OV_III`\*\*, `OV_V`\*\*, `p521_OV_V`\*\*, `OV_Is_pkc`\*\*, `p256_OV_Is_pkc`\*\*, `OV_Ip_pkc`, `p256_OV_Ip_pkc`, `OV_III_pkc`\*\*, `p384_OV_III_pkc`\*\*, `OV_V_pkc`\*\*, `p521_OV_V_pkc`\*\*, `OV_Is_pkc_skc`\*\*, `p256_OV_Is_pkc_skc`\*\*, `OV_Ip_pkc_skc`, `p256_OV_Ip_pkc_skc`, `OV_III_pkc_skc`\*\*, `p384_OV_III_pkc_skc`\*\*, `OV_V_pkc_skc`\*\*, `p521_OV_V_pkc_skc`\*\*
 - **SNOVA**:`snova2454`, `p256_snova2454`, `snova2454shake`\*\*, `p256_snova2454shake`\*\*, `snova2454esk`, `p256_snova2454esk`, `snova2454shakeesk`\*\*, `p256_snova2454shakeesk`\*\*, `snova37172`, `p256_snova37172`, `snova2583`\*\*, `p256_snova2583`\*\*, `snova56252`\*\*, `p384_snova56252`\*\*, `snova49113`\*\*, `p384_snova49113`\*\*, `snova3784`\*\*, `p384_snova3784`\*\*, `snova2455`, `p384_snova2455`, `snova60104`\*\*, `p521_snova60104`\*\*, `snova2965`, `p521_snova2965`
+- **SLH-DSA**:`slhdsasha2128s`, `slhdsasha2128f`, `slhdsasha2192s`, `slhdsasha2192f`, `slhdsasha2256s`, `slhdsasha2256f`, `slhdsashake128s`, `slhdsashake128f`, `slhdsashake192s`, `slhdsashake192f`, `slhdsashake256s`, `slhdsashake256f`
 
 <!--- OQS_TEMPLATE_FRAGMENT_ALGS_END -->
 
@@ -254,9 +253,10 @@ Contributors to the `oqsprovider` include:
 - Alex Zaslavsky (improvements on OpenSSL integration)
 - Will Childs-Klein (improvements on Kyber hybrid OIDs)
 - Thomas Bailleux (many build, CI and usage improvements for different platforms)
-- Felipe Ventura (experimental composite sig integration)
+- Felipe Ventura (experimental composite sig integration - feature removed now)
 - Iyán Méndez Veiga (PKCS#12 testing)
 - Alessandro Barenghi (CROSS OIDs)
+- Rodrigo Martín Sánchez-Ledesma (Brainpool hybrids & OSSL_LIB_CTX use in hybrids)
 
 History
 -------

@@ -43,15 +43,6 @@ const char *kHybridSignatureAlgorithms[] = {
 };
 ///// OQS_TEMPLATE_FRAGMENT_HYBRID_SIG_ALGS_END
 
-///// OQS_TEMPLATE_FRAGMENT_COMPOSITE_SIG_ALGS_START
-
-/** \brief List of composite signature algorithms. */
-const char *kCompositeSignatureAlgorithms[] = {
-
-    NULL,
-};
-///// OQS_TEMPLATE_FRAGMENT_COMPOSITE_SIG_ALGS_END
-
 ///// OQS_TEMPLATE_FRAGMENT_HYBRID_KEM_ALGS_START
 
 /** \brief List of hybrid KEMs. */
@@ -60,8 +51,9 @@ const char *kHybridKEMAlgorithms[] = {
     "x25519_frodo640shake", "p384_frodo976aes",   "x448_frodo976aes",
     "p384_frodo976shake",   "x448_frodo976shake", "p521_frodo1344aes",
     "p521_frodo1344shake",  "p256_mlkem512",      "x25519_mlkem512",
-    "p384_mlkem768",        "x448_mlkem768",      "X25519MLKEM768",
-    "SecP256r1MLKEM768",    "p521_mlkem1024",     "SecP384r1MLKEM1024",
+    "bp256_mlkem512",       "p384_mlkem768",      "x448_mlkem768",
+    "bp384_mlkem768",       "X25519MLKEM768",     "SecP256r1MLKEM768",
+    "p521_mlkem1024",       "SecP384r1MLKEM1024", "bp512_mlkem1024",
     "p256_bikel1",          "x25519_bikel1",      "p384_bikel3",
     "x448_bikel3",          "p521_bikel5",        NULL,
 }; ///// OQS_TEMPLATE_FRAGMENT_HYBRID_KEM_ALGS_END
@@ -72,9 +64,9 @@ void hexdump(const void *ptr, size_t len) {
 
     for (i = 0; i < len; i += j) {
         for (j = 0; j < 16 && i + j < len; j++)
-            printf("%s%02x", j ? "" : " ", p[i + j]);
+            fprintf(stderr, "%s%02x", j ? "" : " ", p[i + j]);
     }
-    printf("\n");
+    fprintf(stderr, "\n");
 }
 
 #define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
@@ -149,10 +141,6 @@ static int is_string_in_list(const char **list, const char *s) {
 
 int is_signature_algorithm_hybrid(const char *_alg_) {
     return is_string_in_list(kHybridSignatureAlgorithms, _alg_);
-}
-
-int is_signature_algorithm_composite(const char *_alg_) {
-    return is_string_in_list(kCompositeSignatureAlgorithms, _alg_);
 }
 
 int is_kem_algorithm_hybrid(const char *_alg_) {

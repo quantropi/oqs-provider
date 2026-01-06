@@ -103,9 +103,12 @@ Votes are to be executed by way of open GitHub discussions. No quorum is needed 
 
 @baentsch
 @bhess
+@ashman-p
+@RodriM11
+
+### Emeritus Committers
 @zadlg
 @christianpaquin
-@ashman-p
 
 ## Afterword
 

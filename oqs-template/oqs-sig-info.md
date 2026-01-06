@@ -16,20 +16,6 @@
 | CROSSrsdpg256balanced                             | 2.2 + PQClean and OQS patches                 | 2            |                    5 | 0xff60       | 1.3.6.1.4.1.62245.2.1.16.2.2 |
 | CROSSrsdpg256fast                                 | 2.2 + PQClean and OQS patches                 | 2            |                    5 | 0xff61       | 1.3.6.1.4.1.62245.2.1.17.2.2 |
 | CROSSrsdpg256small                                | 2.2 + PQClean and OQS patches                 | 2            |                    5 | 0xff62       | 1.3.6.1.4.1.62245.2.1.18.2.2 |
-| dilithium2                                        | 3.1                                           | 3            |                    2 | 0xfea0       | 1.3.6.1.4.1.2.267.7.4.4      |
-| dilithium2 **hybrid with** p256                   | 3.1                                           | 3            |                    2 | 0xfea1       | 1.3.9999.2.7.1               |
-| dilithium2 **hybrid with** rsa3072                | 3.1                                           | 3            |                    2 | 0xfea2       | 1.3.9999.2.7.2               |
-| dilithium3                                        | 3.1                                           | 3            |                    3 | 0xfea3       | 1.3.6.1.4.1.2.267.7.6.5      |
-| dilithium3 **hybrid with** p384                   | 3.1                                           | 3            |                    3 | 0xfea4       | 1.3.9999.2.7.3               |
-| dilithium5                                        | 3.1                                           | 3            |                    5 | 0xfea5       | 1.3.6.1.4.1.2.267.7.8.7      |
-| dilithium5 **hybrid with** p521                   | 3.1                                           | 3            |                    5 | 0xfea6       | 1.3.9999.2.7.4               |
-| dilithium2_aes                                    | NIST Round 3 submission                       | 3            |                    2 | 0xfea7       | 1.3.6.1.4.1.2.267.11.4.4     |
-| dilithium2_aes **hybrid with** p256               | NIST Round 3 submission                       | 3            |                    2 | 0xfea8       | 1.3.9999.2.11.1              |
-| dilithium2_aes **hybrid with** rsa3072            | NIST Round 3 submission                       | 3            |                    2 | 0xfea9       | 1.3.9999.2.11.2              |
-| dilithium3_aes                                    | NIST Round 3 submission                       | 3            |                    3 | 0xfeaa       | 1.3.6.1.4.1.2.267.11.6.5     |
-| dilithium3_aes **hybrid with** p384               | NIST Round 3 submission                       | 3            |                    3 | 0xfeab       | 1.3.9999.2.11.3              |
-| dilithium5_aes                                    | NIST Round 3 submission                       | 3            |                    5 | 0xfeac       | 1.3.6.1.4.1.2.267.11.8.7     |
-| dilithium5_aes **hybrid with** p521               | NIST Round 3 submission                       | 3            |                    5 | 0xfead       | 1.3.9999.2.11.4              |
 | falcon512                                         | 20211101                                      | 3            |                    1 | 0xfed7       | 1.3.9999.3.11                |
 | falcon512 **hybrid with** p256                    | 20211101                                      | 3            |                    1 | 0xfed8       | 1.3.9999.3.12                |
 | falcon512 **hybrid with** rsa3072                 | 20211101                                      | 3            |                    1 | 0xfed9       | 1.3.9999.3.13                |
@@ -65,6 +51,18 @@
 | mldsa65 **hybrid with** p384                      | ML-DSA                                        | FIPS204      |                    3 | 0xff08       | 1.3.9999.7.7                 |
 | mldsa87                                           | ML-DSA                                        | FIPS204      |                    5 | 0x0906       | 2.16.840.1.101.3.4.3.19      |
 | mldsa87 **hybrid with** p521                      | ML-DSA                                        | FIPS204      |                    5 | 0xff09       | 1.3.9999.7.8                 |
+| slhdsasha2128s                                    | SLH-DSA                                       | FIPS205      |                    1 | 0x0911       | 2.16.840.1.101.3.4.3.20      |
+| slhdsasha2128f                                    | SLH-DSA                                       | FIPS205      |                    1 | 0x0912       | 2.16.840.1.101.3.4.3.21      |
+| slhdsasha2192s                                    | SLH-DSA                                       | FIPS205      |                    3 | 0x0913       | 2.16.840.1.101.3.4.3.22      |
+| slhdsasha2192f                                    | SLH-DSA                                       | FIPS205      |                    3 | 0x0914       | 2.16.840.1.101.3.4.3.23      |
+| slhdsasha2256s                                    | SLH-DSA                                       | FIPS205      |                    5 | 0x0915       | 2.16.840.1.101.3.4.3.24      |
+| slhdsasha2256f                                    | SLH-DSA                                       | FIPS205      |                    5 | 0x0916       | 2.16.840.1.101.3.4.3.25      |
+| slhdsashake128s                                   | SLH-DSA                                       | FIPS205      |                    1 | 0x0917       | 2.16.840.1.101.3.4.3.26      |
+| slhdsashake128f                                   | SLH-DSA                                       | FIPS205      |                    1 | 0x0918       | 2.16.840.1.101.3.4.3.27      |
+| slhdsashake192s                                   | SLH-DSA                                       | FIPS205      |                    3 | 0x0919       | 2.16.840.1.101.3.4.3.28      |
+| slhdsashake192f                                   | SLH-DSA                                       | FIPS205      |                    3 | 0x091A       | 2.16.840.1.101.3.4.3.29      |
+| slhdsashake256s                                   | SLH-DSA                                       | FIPS205      |                    5 | 0x091B       | 2.16.840.1.101.3.4.3.30      |
+| slhdsashake256f                                   | SLH-DSA                                       | FIPS205      |                    5 | 0x091C       | 2.16.840.1.101.3.4.3.31      |
 | snova2454                                         | Round 2                                       | 2            |                    1 | 0xff3a       | 1.3.9999.10.1.1              |
 | snova2454 **hybrid with** p256                    | Round 2                                       | 2            |                    1 | 0xff3b       | 1.3.9999.10.1.2              |
 | snova2454shake                                    | Round 2                                       | 2            |                    1 | 0xff3c       | 1.3.9999.10.2.1              |

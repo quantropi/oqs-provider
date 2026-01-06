@@ -31,7 +31,7 @@ static int test_oqs_tlssig(const char *sig_name, int dtls_flag) {
 #endif
 
     if (!alg_is_enabled(sig_name)) {
-        printf("Not testing disabled algorithm %s.\n", sig_name);
+        fprintf(stderr, "Not testing disabled algorithm %s.\n", sig_name);
         return 1;
     }
 
@@ -87,7 +87,7 @@ err:
 static void test_oqs_sigs(EVP_SIGNATURE *evpsig, void *vp) {
         OSSL_PROVIDER* prov = EVP_SIGNATURE_get0_provider(evpsig);
         if (!strcmp(OSSL_PROVIDER_get0_name(prov), "oqsprovider")) {
-                printf("Commencing test of %s:\n",
+                fprintf(stderr, "Commencing test of %s:\n",
 EVP_SIGNATURE_get0_name(evpsig));
                 test_oqs_tlssig(EVP_SIGNATURE_get0_name(evpsig));
         }
@@ -95,11 +95,10 @@ EVP_SIGNATURE_get0_name(evpsig));
 */
 
 static int test_signature(const OSSL_PARAM params[], void *data) {
-    int ret = 0;
-    int *errcnt = (int *)data;
+    int ret = 1;
+    int *errcnt = (int *)data, *mintls = NULL;
     const OSSL_PARAM *p =
         OSSL_PARAM_locate_const(params, OSSL_CAPABILITY_TLS_SIGALG_NAME);
-
     if (p == NULL || p->data_type != OSSL_PARAM_UTF8_STRING) {
         ret = -1;
         goto err;
@@ -109,6 +108,20 @@ static int test_signature(const OSSL_PARAM params[], void *data) {
 
     if (sigalg_name == NULL)
         return 0;
+
+    p = OSSL_PARAM_locate_const(params, OSSL_CAPABILITY_TLS_SIGALG_MIN_TLS);
+    if (p == NULL || p->data_type != OSSL_PARAM_INTEGER) {
+        ret = -1;
+        goto err;
+    }
+
+    mintls = (int *)p->data;
+    if (*mintls == -1) {
+        fprintf(stderr,
+                cYELLOW "  TLS-SIG handshake test skipped: %s" cNORM "\n",
+                sigalg_name);
+        goto err;
+    }
 
     ret = test_oqs_tlssig(sigalg_name, 0);
 

@@ -32,13 +32,13 @@
 #else
 #define OQS_SIG_PRINTF(a)                                                      \
     if (getenv("OQSSIG"))                                                      \
-    printf(a)
+    fprintf(stderr, a)
 #define OQS_SIG_PRINTF2(a, b)                                                  \
     if (getenv("OQSSIG"))                                                      \
-    printf(a, b)
+    fprintf(stderr, a, b)
 #define OQS_SIG_PRINTF3(a, b, c)                                               \
     if (getenv("OQSSIG"))                                                      \
-    printf(a, b, c)
+    fprintf(stderr, a, b, c)
 #endif // NDEBUG
 
 static OSSL_FUNC_signature_newctx_fn oqs_sig_newctx;
@@ -693,6 +693,14 @@ static void *oqs_sig_dupctx(void *vpoqs_sigctx) {
         dstctx->propq = OPENSSL_strdup(srcctx->propq);
         if (dstctx->propq == NULL)
             goto err;
+    }
+
+    if (srcctx->context_string) {
+        dstctx->context_string = OPENSSL_memdup(srcctx->context_string,
+                                                srcctx->context_string_length);
+        if (dstctx->context_string == NULL)
+            goto err;
+        dstctx->context_string_length = srcctx->context_string_length;
     }
 
     return dstctx;

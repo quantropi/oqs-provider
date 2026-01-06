@@ -74,6 +74,7 @@ def get_sig_nistlevel(family, alg):
     def matches(name, alg):
         def simplify(s):
             return s.lower().replace('_', '').replace('-', '').replace('+', '')
+        if 'SLH_DSA_PURE' in name: name = name.replace('_PURE', '')
         if simplify(name) == simplify(alg['name']): return True
         return False
     # find the variant that matches
@@ -182,12 +183,14 @@ def populate(filename, config, delimiter, overwrite=False):
             contents = preamble + identifier_start + Jinja2.get_template(fragment).render({'config': config}) + postamble
     file_put_contents(filename, contents)
 
-def load_config(include_disabled_sigs=False):
+def load_config(include_disabled_sigs=False, include_disabled_kems=False):
     config = file_get_contents(os.path.join('oqs-template', 'generate.yml'), encoding='utf-8')
     config = yaml.safe_load(config)
     if not include_disabled_sigs:
         for sig in config['sigs']:
             sig['variants'] = [variant for variant in sig['variants'] if ('enable' in variant and variant['enable'])]
+    if not include_disabled_kems:
+        config['kems'] = [kem for kem in config['kems'] if ('enable_kem' in kem and kem['enable_kem'])]
 
     # remove KEMs without NID (old stuff)
     newkems = []
@@ -210,11 +213,11 @@ def load_config(include_disabled_sigs=False):
             continue
         hybrid_nids = set()
         for extra_hybrid in kem['extra_nids']['current']:
-            if extra_hybrid['hybrid_group'] == "x25519" or extra_hybrid['hybrid_group'] == "p256"  or extra_hybrid['hybrid_group'] == "secp256_r1":
+            if extra_hybrid['hybrid_group'] == "x25519" or extra_hybrid['hybrid_group'] == "p256" or extra_hybrid['hybrid_group'] == "bp256" or extra_hybrid['hybrid_group'] == "secp256_r1":
                extra_hybrid['bit_security'] = 128
-            if extra_hybrid['hybrid_group'] == "x448" or extra_hybrid['hybrid_group'] == "p384" or extra_hybrid['hybrid_group'] == "secp384_r1":
+            if extra_hybrid['hybrid_group'] == "x448" or extra_hybrid['hybrid_group'] == "p384" or extra_hybrid['hybrid_group'] == "bp384" or extra_hybrid['hybrid_group'] == "secp384_r1":
                extra_hybrid['bit_security'] = 192
-            if extra_hybrid['hybrid_group'] == "p521" or extra_hybrid['hybrid_group'] == "secp521_r1":
+            if extra_hybrid['hybrid_group'] == "p521" or extra_hybrid['hybrid_group'] == "bp512" or extra_hybrid['hybrid_group'] == "secp521_r1":
                extra_hybrid['bit_security'] = 256
             if not 'hybrid_oid' in extra_hybrid:
                 extra_hybrid['hybrid_oid'] = get_tmp_kem_oid()
@@ -229,6 +232,32 @@ def load_config(include_disabled_sigs=False):
                 hybrid_nids.add(extra_hybrid_nid)
     return config
 
+# Validates that non-standard TLS code points are in the private use range
+def validate_iana_code_points(config):
+    reserved = list(range(65024, 65280))
+    in_use = list(reserved)
+    def validate(kem, name):
+        nid = str(kem['nid'])
+        nid = int(nid, 16) if nid[:2] == '0x' else int(nid, 10)
+        if nid in reserved and nid in in_use:
+            in_use.remove(nid)
+        elif nid not in reserved:
+            print(f"Non-standard TLS group {name} code point {kem['nid']} not in private use range.")
+            print(f"Next free code in point in private use range: {min(in_use)}")
+            exit(1)
+        elif nid not in in_use:
+            print(f"Non-standard TLS group {name} code point {kem['nid']} already in use in oqs-provider.")
+            print(f"Next free code in point in private use range: {min(in_use)}")
+            exit(1)
+
+    for kem in config['kems']:
+        if 'iana' not in kem or not kem['iana']:
+            validate(kem, f"{kem['name_group']}")
+
+            for hybrid in kem['hybrids']:
+                if 'iana' not in hybrid or not hybrid['iana']:
+                    validate(hybrid, f"{kem['name_group']}_{hybrid['hybrid_group']}")
+
 # extend config with "hybrid_groups" array:
 config = load_config() # extend config with "hybrid_groups" array
 
@@ -236,6 +265,7 @@ config = load_config() # extend config with "hybrid_groups" array
 # nid_hybrid information
 config = complete_config(config)
 
+validate_iana_code_points(config)
 
 populate('oqsprov/oqsencoders.inc', config, '/////')
 populate('oqsprov/oqsdecoders.inc', config, '/////')

@@ -24,6 +24,8 @@
 #define cDRED "\033[0;31m"
 #define cGREEN "\033[1;32m"
 #define cDGREEN "\033[0;32m"
+#define cYELLOW "\033[1;33m"
+#define cDYELLOW "\033[0;33m"
 #define cBLUE "\033[1;34m"
 #define cDBLUE "\033[0;34m"
 #define cNORM "\033[m"
@@ -31,9 +33,9 @@
 #define TEST_ASSERT(e)                                                         \
     {                                                                          \
         if (!(test = (e)))                                                     \
-            printf(cRED "  Test FAILED" cNORM "\n");                           \
+            fprintf(stderr, cRED "  Test FAILED" cNORM "\n");                  \
         else                                                                   \
-            printf(cGREEN "  Test passed" cNORM "\n");                         \
+            fprintf(stderr, cGREEN "  Test passed" cNORM "\n");                \
     }
 
 void hexdump(const void *ptr, size_t len);
@@ -56,13 +58,6 @@ void load_oqs_provider(OSSL_LIB_CTX *libctx, const char *modulename,
  *
  * \returns 1 if hybrid, else 0. */
 int is_signature_algorithm_hybrid(const char *_alg_);
-
-/** \brief Indicates if a signature algorithm is composite or not.
- *
- * \param alg Algorithm name.
- *
- * \returns 1 if hybrid, else 0. */
-int is_signature_algorithm_composite(const char *_alg_);
 
 /** \brief Indicates if an kem algorithm is hybrid or not.
  *

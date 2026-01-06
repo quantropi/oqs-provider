@@ -34,23 +34,13 @@ This project has adopted the LLVM coding style.
 To check adherence of any new code to this, it therefore is highly recommended to
 run the following commands in the project main directory prior to finishing a PR:
 
-    ./scripts/do_code_format.sh
+    ./scripts/format_code.sh
 
-If errors/deviations are reported, review the code or consider running the utility
-script `scripts/format_code.sh` if you'd like to get the code changed to use the
-exact same code style check used in CI.
+If the github CI reports style errors/deviations, review the code or consider running
+the utility script `scripts/format_code.sh` if you'd like to get the code changed to
+use the exact same code style check used in CI.
 
 ### Running CI locally
-
-#### CircleCI
-
-If encountering CI errors in CircleCI, it may be helpful to execute the test jobs
-locally to debug. This can be facilitated by executing the command
-
-   circleci local execute [--job] some-test-job
-
-assuming "some-test-job" is the name of the test to be executed and the CircleCI
-[command line tools have been installed](https://circleci.com/docs/local-cli).
 
 #### Github CI
 

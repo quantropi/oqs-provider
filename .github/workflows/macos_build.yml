@@ -9,6 +9,7 @@ permissions:
 jobs:
   coding_style_tests:
     uses: ./.github/workflows/coding_style.yml
+
   macos:
 # Run a job for each of the specified os configs:
     strategy:
@@ -35,6 +36,7 @@ jobs:
           set-safe-directory: true
           repository: openssl/openssl
           path: openssl
+          ref: openssl-3.4
       - name: checkout liboqs
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
         with:
@@ -47,7 +49,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .localopenssl32
-          key: ${{ runner.os }}-openssl32
+          key: ${{ runner.os }}-openssl32-ossl35
       - name: Build openssl3 if not cached
         if: steps.cache-openssl32.outputs.cache-hit != 'true'
         run: pwd && ./config --prefix=`pwd`/../.localopenssl32 && make $MAKE_PARAMS && make install_sw install_ssldirs

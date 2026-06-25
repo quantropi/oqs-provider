@@ -56,7 +56,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: c:\cygwin\opt\openssl32
-          key: ${{ runner.os }}-msvcopenssl32-ossl35
+          key: ${{ runner.os }}-cygwinopenssl32-ossl34
       - name: Build openssl3 if not cached
         if: steps.cache-openssl32.outputs.cache-hit != 'true'
         run: bash -c "./config --prefix=/opt/openssl32 ${{ matrix.platform.config }} && perl configdata.pm --dump && make $MAKE_PARAMS && make install_sw"
@@ -70,7 +70,7 @@ jobs:
         with:
           path: |
             c:\cygwin\opt\openssl32
-          key: ${{ runner.os }}-msvcopenssl32-ossl35
+          key: ${{ runner.os }}-cygwinopenssl32-ossl34
       - name: Set installpath
         run: |
            echo "IP=$(cygpath -u $PWD)/.local" >> "$env:GITHUB_ENV"
@@ -126,7 +126,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: c:\openssl32
-          key: ${{ runner.os }}-msvcopenssl32-ossl35
+          key: ${{ runner.os }}-msvcopenssl32-ossl34
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
       - name: Checkout OpenSSL stable
         if: steps.cache-openssl32.outputs.cache-hit != 'true'
@@ -200,7 +200,7 @@ jobs:
         with:
           path: |
             c:\openssl32
-          key: ${{ runner.os }}-msvcopenssl32-ossl35
+          key: ${{ runner.os }}-msvcopenssl32-ossl34
       - name: build oqs-provider
         run: |
           cmake -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="cl" -DCMAKE_C_FLAGS="/wd5105" -DOPENSSL_ROOT_DIR="c:\openssl32" -Dliboqs_DIR="c:\liboqs\lib\cmake\liboqs" -S . -B _build
@@ -240,7 +240,7 @@ jobs:
           uses: actions/cache@v4
           with:
             path: c:\openssl32n
-            key: ${{ runner.os }}-msvcopenssl32-ossl35
+            key: ${{ runner.os }}-msvcopenssl32n-ossl34
         - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
         - name: Checkout OpenSSL master
           if: steps.cache-openssl32n.outputs.cache-hit != 'true'
@@ -307,7 +307,7 @@ jobs:
           with:
             path: |
               c:\openssl32n
-            key: ${{ runner.os }}-msvcopenssl32-ossl35
+            key: ${{ runner.os }}-msvcopenssl32n-ossl34
         - name: build oqs-provider
           run: |
             cmake --toolchain ${{ matrix.toolchain }} -DCMAKE_BUILD_TYPE=${{ matrix.type }} -DCMAKE_C_COMPILER="cl" -DCMAKE_C_FLAGS="/wd5105" -DOPENSSL_ROOT_DIR="c:\openssl32n" -Dliboqs_DIR="c:\liboqs\lib\cmake\liboqs" -S . -B _build

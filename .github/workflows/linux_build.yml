@@ -70,13 +70,16 @@ jobs:
     container:
       image: openquantumsafe/ci-ubuntu-jammy:latest
     env:
-      OPENSSL_BRANCH: "master"
+      OPENSSL_BRANCH: "openssl-3.4.1"
       INSTALL_DIR: "/opt/install"
       CMAKE_TOOLCHAIN_FILE: "/opt/linux-aarch64-toolchain.cmake"
 
     steps:
       - name: Checkout code
         uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # pin@v4
+
+      - name: Add safe directory exception
+        run: git config --global --add safe.directory /__w/oqs-provider/oqs-provider
 
       - name: Install dependencies
         run: apt-get update && apt-get install -y ninja-build git cmake nodejs gcc-aarch64-linux-gnu libc6-dev-arm64-cross qemu-user

@@ -223,7 +223,7 @@ jobs:
           - windows-2022
         platform:
           - arch: win64
-            oqsconfig: -DOQS_ALGS_ENABLED=All
+            oqsconfig: -DOQS_ALGS_ENABLED=STD
             osslconfig: no-shared no-fips VC-WIN64A
         toolchain:
         - .CMake/toolchain_windows_amd64.cmake
@@ -254,7 +254,7 @@ jobs:
           with:
             set-safe-directory: true
             repository: open-quantum-safe/liboqs
-            ref: main
+            ref: 0.15.0
             path: liboqs
         - uses: ilammy/msvc-dev-cmd@v1
           with:

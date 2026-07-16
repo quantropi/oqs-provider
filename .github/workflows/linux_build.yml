@@ -21,7 +21,7 @@ jobs:
       LIBOQS_BRANCH: "0.12.0"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: 0.8.0
       - name: Full build
@@ -56,7 +56,7 @@ jobs:
       LIBOQS_BRANCH: "main"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: 0.8.0
       - name: Full build
@@ -80,7 +80,7 @@ jobs:
         run: cpack -C DebPack
         working-directory: _build
       - name: Retain .deb installer
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: oqsprovider-x86-x64-${{ matrix.libjade-build }}
           path: _build/lib/oqsprovider.so
@@ -106,7 +106,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: 0.8.0
 
@@ -178,7 +178,7 @@ jobs:
             dpkg -I oqs-provider-*.deb | grep -q "Architecture: arm64"
 
       - name: Retain .deb installer
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: oqsprovider-aarch64
           path: build/*.deb

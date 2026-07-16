@@ -28,7 +28,7 @@ jobs:
       MAKE_PARAMS: -j 4
     steps:
       - name: Checkout provider
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: 0.8.0
       - name: Checkout openssl
@@ -46,7 +46,7 @@ jobs:
           path: liboqs
       - name: Retrieve OpenSSL32 from cache
         id: cache-openssl32
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: .localopenssl32
           key: ${{ runner.os }}-openssl32
@@ -57,7 +57,7 @@ jobs:
       - name: Save OpenSSL
         id: cache-openssl-save
         if: steps.cache-openssl32.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v6
         with:
           path: |
             .localopenssl32
@@ -87,7 +87,7 @@ jobs:
             fi'
         working-directory: scripts
       - name: Retain oqsprovider.dylib
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: oqs-provider-${{matrix.os}}-x64
           path: _build/lib/oqsprovider.dylib

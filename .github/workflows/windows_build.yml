@@ -32,11 +32,11 @@ jobs:
       MAKE_PARAMS: -j 4
     steps:
       - name: Checkout provider
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: 0.8.0
       - name: Checkout openssl
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           set-safe-directory: true
           repository: openssl/openssl
@@ -44,7 +44,7 @@ jobs:
           # TODO: Revert ref tag once openssl master doesn't crash any more
           ref: openssl-3.4.0
       - name: checkout liboqs
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           set-safe-directory: true
           repository: open-quantum-safe/liboqs
@@ -56,7 +56,7 @@ jobs:
           packages: perl git ninja gcc-core cmake make python3 python3-devel python3-setuptools python3-exceptiongroup
       - name: Retrieve OpenSSL32 from cache
         id: cache-openssl32
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: c:\cygwin\opt\openssl32
           key: ${{ runner.os }}-cygwinopenssl32
@@ -69,7 +69,7 @@ jobs:
       - name: Save OpenSSL
         id: cache-openssl-save
         if: steps.cache-openssl32.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v6
         with:
           path: |
             c:\cygwin\opt\openssl32
@@ -102,7 +102,7 @@ jobs:
         run: bash -c "echo $PATH && PATH=/opt/openssl32/bin:/usr/bin ctest -V"
         working-directory: _build
       - name: Retain oqsprovider.dll
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: oqs-provider-cygwin
           path: D:/a/oqs-provider/oqs-provider/_build/bin/oqsprovider.dll
@@ -127,22 +127,22 @@ jobs:
     steps:
       - name: Restore OpenSSL32 cache
         id: cache-openssl32
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: c:\openssl32
           key: ${{ runner.os }}-msvcopenssl32
       - name: Checkout provider
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: 0.8.0
       - name: Checkout OpenSSL master
         if: steps.cache-openssl32.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           set-safe-directory: true
           repository: openssl/openssl
           path: openssl
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           set-safe-directory: true
           repository: open-quantum-safe/liboqs
@@ -202,7 +202,7 @@ jobs:
       - name: Save OpenSSL
         id: cache-openssl-save
         if: steps.cache-openssl32.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v6
         with:
           path: |
             c:\openssl32
@@ -216,7 +216,7 @@ jobs:
         run: |
           ctest -V --test-dir _build
       - name: Retain oqsprovider.dll
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: oqs-provider-msvc
           path: D:/a/oqs-provider/oqs-provider/_build/lib/oqsprovider.dll
@@ -244,22 +244,22 @@ jobs:
     steps:
         - name: Restore native OpenSSL32 cache
           id: cache-openssl32n
-          uses: actions/cache@v3
+          uses: actions/cache@v6
           with:
             path: c:\openssl32n
             key: ${{ runner.os }}-msvcopenssl32n
         - name: Checkout provider
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
           with:
             ref: 0.8.0
         - name: Checkout OpenSSL master
           if: steps.cache-openssl32n.outputs.cache-hit != 'true'
-          uses: actions/checkout@v4
+          uses: actions/checkout@v7
           with:
             set-safe-directory: true
             repository: openssl/openssl
             path: openssl
-        - uses: actions/checkout@v4
+        - uses: actions/checkout@v7
           with:
             set-safe-directory: true
             repository: open-quantum-safe/liboqs
@@ -312,7 +312,7 @@ jobs:
         - name: Save OpenSSL
           id: cache-openssl-save
           if: steps.cache-openssl32n.outputs.cache-hit != 'true'
-          uses: actions/cache/save@v3
+          uses: actions/cache/save@v6
           with:
             path: |
               c:\openssl32n
@@ -325,7 +325,7 @@ jobs:
           run: |
             ctest --test-dir _build -C ${{ matrix.type }}
         - name: Retain oqsprovider.dll
-          uses: actions/upload-artifact@v4
+          uses: actions/upload-artifact@v7
           with:
             name: oqs-provider-msvc
             path: D:/a/oqs-provider/oqs-provider/_build/lib/oqsprovider.dll
